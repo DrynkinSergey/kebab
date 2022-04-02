@@ -5,9 +5,70 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color:red;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.App{
+  max-width: 1070px;
+  margin: 0 auto;
+  height: 100vh;
+}
+.addItem{
+  padding: 80px 0;
+  text-align: center;
+}
+input{
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  border: 5px solid red;
+  outline: none;
+}
+button{
+  padding: 10px;
+  background-color: green;
+  color: white;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+}
+button:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all .3s ease;
+}
+ul li{
+  list-style: none;
+}
+.item{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+  border-radius: 10px;
+  border: 3px solid red;
+  background-color: #fff;
+  color: black;
+  margin-bottom: 20px;
+}
+.name{
+  width: 70%;
+  padding: 0 20px;
+  font-size: 1.2rem;
+}
+.price{
+  width: 30%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.sum{
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
