@@ -1,3 +1,4 @@
+/*
 import '../../index.css'
 
 import {useEffect, useState} from "react";
@@ -112,6 +113,25 @@ function App() {
             <AddItem onSubmit={onSubmit}/>
             <div className='sum'>Общая сумма: {sum}</div>
             <ItemsList data={state.items} count={state.countItems}/>
+        </div>
+    );
+}
+
+export default App;
+*/
+import '../../index.css'
+
+import AddItem from "../AddItem/AddItem";
+import {useDispatch,useSelector} from "react-redux";
+import ItemsList from "../ItemsList/ItemsList";
+
+function App() {
+    const kebab = useSelector(state => state);
+    return (
+        <div className="App">
+            <AddItem/>
+            <div className='sum'>Общая сумма: </div>
+            <ItemsList/>
         </div>
     );
 }
