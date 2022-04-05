@@ -1,87 +1,112 @@
-import { createStore } from "redux";
-import {useState} from "react";
+import {createStore} from "redux";
+
 let count = null;
-const initial =   {
-    id: 1,
-    name: 'Куринная',
-    price: 85,
+const initial = {
+    id: null,
+    name: null,
+    price: null,
 }
 
+const m = 'Мини',
+    k = 'Куринная',
+    fri = 'Фри',
+    souce = 'Соус / Кетчуп',
+    uzvar = 'Узвар',
+    airan = 'Айран',
+    dener = 'Денер',
+    miniAr = 'Мини араб';
 
-const kur =  {
-    id: 1,
-    name: 'Куринная',
-    price: 85,
-}
-const a = 'Мини',
-    b='Куринная',
-    c='Фри',
-    d='Мини араб'
 const kebab = (state = [initial], action) => {
 
     switch (action.type) {
+
         case "ADD_ITEM": {
-            let name
-            if(action.title[0] === 'м'){
-                name = a
-            }else if(action.title[0] === 'к') {
-                name = b
-            }else if(action.title[1] === 'р') {
-                name = d
-            } else name=c
-            const reg = action.title.match(/\d/g);
-
-            (reg)?count = reg.join('') :count = 1;
-            if (count !== 1){
-                name= `${name} x${count}`
+            let nameOfAdd, name;
+            if (action.title[0] === 'м') {
+                name = m
+            } else if (action.title[0] === 'с') {
+                name = souce
+            } else if (action.title[0] === 'к') {
+                name = k
+            } else if (action.title[1] === 'р') {
+                name = miniAr
+            }  else if (action.title[0] === 'А') {
+                name = 'Араб'
+            } else if (action.title[0] === 'у') {
+                name = uzvar
+            } else if (action.title[0] === 'а') {
+                name = airan
+            } else if (action.title[0] === 'д') {
+                name = dener
             }
-            let nameOfAdd;
-
-
-            if (action.title[1] === 'р'){
-               nameOfAdd = action.title.match(/[а-я]/g).slice(2);
-            } else{
-                nameOfAdd = action.title.match(/[а-я]/g).slice(1);
-
+            else if (action.title[0] === 'ф') {
+                name = fri
             }
-            const add = action.title.match(/[а-я]/g).slice(1)
-                .map((item,i) => {
-                if (item  === 'с') {
-                  return   item = 12
-                } else if (item === 'г')
-                   return  item = 9
-                else if (item === 'к')
-                    return  item = 9
-                else return null
-            })
-            let result = add.reduce(function(sum, elem) {
+            else if (action.title[0] === 'к') {
+                name = 'Кавказ'
+            }else name = 'NOTHING'
+
+            action.title.match(/\d/g) ? count = action.title.match(/\d/g).join('') : count = 1;
+            if (count !== 1) {
+                name = `${name} x${count}`
+            }
+
+
+            if (action.title[1] === 'р') {
+                nameOfAdd = action.title.match(/\W/g).slice(2);
+            } else {
+                nameOfAdd = action.title.match(/\W/g).slice(1);
+            }
+
+            const add = action.title.match(/\W/g).slice(1)
+                .map(item => {
+                    if (item === 'с' || item === 'а' || item === 'м'  ) {
+                        return  12
+                    } else if (item === 'г' || item === 'к' )
+                        return   9
+                    else if (item === 'п')
+                        return   30
+                    else return null
+                })
+            let result = add.reduce(function (sum, elem) {
                 return sum + elem;
             }, 0);
 
 
-
-            const kur =  {
+            const kur = {
                 id: 1,
-                price: (85+result)*count,
-                add:{}
+                price: (85 + result) * count,
+                add: {}
             }
-            const mini =  {
+            const mini = {
                 id: 2,
-                price: (55+result)*count,
-                add:{}
+                price: (55 + result) * count,
+                add: {}
             }
-            const miniArab =  {
+            const miniArab = {
                 id: 3,
-                price: (80+result)*count,
-                add:{}
+                price: (80 + result) * count,
+                add: {}
             }
-
+            const Arab = {
+                id: 3,
+                price: (140 + result) * count,
+                add: {}
+            }
+            if (action.title[0] === '.') {
+                return [
+                    ...state,
+                    {
+                        ...initial
+                    }
+                ];
+            }
             if (action.title[0] === 'м') {
                 return [
                     ...state,
                     {
                         ...mini,
-                        name: name+" " + nameOfAdd,
+                        name: name + " " + nameOfAdd,
                         add: {...add}
                     }
                 ];
@@ -91,7 +116,17 @@ const kebab = (state = [initial], action) => {
                     ...state,
                     {
                         ...miniArab,
-                        name: name+" " + nameOfAdd,
+                        name: name + " " + nameOfAdd,
+                        add: {...add}
+                    }
+                ];
+            }
+            if (action.title[0] === 'А') {
+                return [
+                    ...state,
+                    {
+                        ...Arab,
+                        name: name + " " + nameOfAdd,
                         add: {...add}
                     }
                 ];
@@ -101,25 +136,63 @@ const kebab = (state = [initial], action) => {
                     ...state,
                     {
                         id: 3,
-                        name: 'Фри',
-                        price: 40*count,
+                        name: name,
+                        price: 40 * count,
                     }
                 ];
             }
-
-            else if (action.title[0] === 'к') {
+            if (action.title[0] === 'с') {
                 return [
                     ...state,
                     {
-                        ...kur,
-                        name: name+" " + nameOfAdd,
+                        id: 4,
+                        name: name,
+                        price: 5 * count,
+                    }
+                ];
+            }
+            if (action.title[0] === 'а') {
+                return [
+                    ...state,
+                    {
+                        id: 4,
+                        name: name,
+                        price: 25 * count,
+                    }
+                ];
+            }
+            if (action.title[0] === 'у') {
+                return [
+                    ...state,
+                    {
+                        id: 4,
+                        name: name,
+                        price: 20 * count,
+                    }
+                ];
+            }
+            if (action.title[0] === 'д') {
+                return [
+                    ...state,
+                    {
+                        id: 4,
+                        name: name + " " + nameOfAdd,
+                        price: 57 * count,
                         add: {...add},
                         extra: {...nameOfAdd}
                     }
                 ];
-            }
-            else
-            {
+            } else if (action.title[0] === 'к') {
+                return [
+                    ...state,
+                    {
+                        ...kur,
+                        name: name + " " + nameOfAdd,
+                        add: {...add},
+                        extra: {...nameOfAdd}
+                    }
+                ];
+            } else {
                 return state
             }
         }

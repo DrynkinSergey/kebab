@@ -55,6 +55,17 @@ ul li{
   background-color: #fff;
   color: black;
   margin-bottom: 20px;
+  animation: show 1s;
+  overflow: hidden;
+}
+@keyframes show {
+    0%{
+      opacity: 0;
+    }
+  100%{
+
+    opacity: 1;
+  }
 }
 .name{
   width: 70%;
@@ -71,4 +82,8 @@ ul li{
   text-align: center;
   font-size: 2rem;
   margin-bottom: 10px;
+}
+.green {
+  background-color: green;
+  border-color: green;
 }
