@@ -8,10 +8,10 @@ const ItemsList = ({data}) => {
         <ul>
             {kebab.map((item, i) => {
                     return (
-                        <Item key={i} i={i + 1} name={item.name} price={item.price}/>
+                        <Item key={i}  name={item.name} price={item.price}/>
                     )
                 }
-            )}
+            ).reverse()}
         </ul>
     )
 };
