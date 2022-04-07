@@ -16,6 +16,7 @@ const m = 'Мини',
     dener = 'Денер',
     miniAr = 'Мини араб';
 
+
 const kebab = (state = [initial], action) => {
 
     switch (action.type) {
@@ -51,7 +52,6 @@ const kebab = (state = [initial], action) => {
                 name = `${name} x${count}`
             }
 
-
             if (action.title[1] === 'р') {
                 nameOfAdd = action.title.match(/\W/g).slice(2);
             } else {
@@ -71,28 +71,30 @@ const kebab = (state = [initial], action) => {
             let result = add.reduce(function (sum, elem) {
                 return sum + elem;
             }, 0);
+            const menu = {
+                kur : {
+                    id: 1,
+                    price: (85 + result) * count,
+                    add: {...add}
 
+                },
+                mini : {
+                    id: 2,
+                    price: (55 + result) * count,
+                    add: {...add}
+                },
+                miniArab : {
+                    id: 3,
+                    price: (80 + result) * count,
+                    add: {...add}
+                },
+                Arab : {
+                    id: 4,
+                    price: (140 + result) * count,
+                    add: {...add}
+                }
+            }
 
-            const kur = {
-                id: 1,
-                price: (85 + result) * count,
-                add: {}
-            }
-            const mini = {
-                id: 2,
-                price: (55 + result) * count,
-                add: {}
-            }
-            const miniArab = {
-                id: 3,
-                price: (80 + result) * count,
-                add: {}
-            }
-            const Arab = {
-                id: 3,
-                price: (140 + result) * count,
-                add: {}
-            }
             if (action.title[0] === '.') {
                 return [
                     ...state,
@@ -105,9 +107,8 @@ const kebab = (state = [initial], action) => {
                 return [
                     ...state,
                     {
-                        ...mini,
+                        ...menu.mini,
                         name: name + " " + nameOfAdd,
-                        add: {...add}
                     }
                 ];
             }
@@ -115,7 +116,7 @@ const kebab = (state = [initial], action) => {
                 return [
                     ...state,
                     {
-                        ...miniArab,
+                        ...menu.miniArab,
                         name: name + " " + nameOfAdd,
                         add: {...add}
                     }
@@ -125,7 +126,7 @@ const kebab = (state = [initial], action) => {
                 return [
                     ...state,
                     {
-                        ...Arab,
+                        ...menu.Arab,
                         name: name + " " + nameOfAdd,
                         add: {...add}
                     }
@@ -186,7 +187,7 @@ const kebab = (state = [initial], action) => {
                 return [
                     ...state,
                     {
-                        ...kur,
+                        ...menu.kur,
                         name: name + " " + nameOfAdd,
                         add: {...add},
                         extra: {...nameOfAdd}
