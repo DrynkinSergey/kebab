@@ -1,4 +1,5 @@
 import {createStore} from "redux";
+import {menu} from "./menu";
 
 let count = null;
 const initial = {
@@ -18,34 +19,11 @@ const m = 'Мини',
 
 
 const kebab = (state = [initial], action) => {
-
+    const {mini,kur} = menu;
     switch (action.type) {
 
         case "ADD_ITEM": {
             let nameOfAdd, name;
-            if (action.title[0] === 'м') {
-                name = m
-            } else if (action.title[0] === 'с') {
-                name = souce
-            } else if (action.title[0] === 'к') {
-                name = k
-            } else if (action.title[1] === 'р') {
-                name = miniAr
-            }  else if (action.title[0] === 'А') {
-                name = 'Араб'
-            } else if (action.title[0] === 'у') {
-                name = uzvar
-            } else if (action.title[0] === 'а') {
-                name = airan
-            } else if (action.title[0] === 'д') {
-                name = dener
-            }
-            else if (action.title[0] === 'ф') {
-                name = fri
-            }
-            else if (action.title[0] === 'к') {
-                name = 'Кавказ'
-            }else name = 'NOTHING'
 
             action.title.match(/\d/g) ? count = action.title.match(/\d/g).join('') : count = 1;
             if (count !== 1) {
@@ -71,29 +49,6 @@ const kebab = (state = [initial], action) => {
             let result = add.reduce(function (sum, elem) {
                 return sum + elem;
             }, 0);
-            const menu = {
-                kur : {
-                    id: 1,
-                    price: (85 + result) * count,
-                    add: {...add}
-
-                },
-                mini : {
-                    id: 2,
-                    price: (55 + result) * count,
-                    add: {...add}
-                },
-                miniArab : {
-                    id: 3,
-                    price: (80 + result) * count,
-                    add: {...add}
-                },
-                Arab : {
-                    id: 4,
-                    price: (140 + result) * count,
-                    add: {...add}
-                }
-            }
 
             if (action.title[0] === '.') {
                 return [
@@ -103,14 +58,41 @@ const kebab = (state = [initial], action) => {
                     }
                 ];
             }
+            const show = (target) =>{
+                return {
+                    count: +count,
+                    price: ((target.price + result) * count),
+                    add: {...add},
+                    extra: {...nameOfAdd}
+                };
+            }
+
+            switch (action.title[0]) {
+                case 'м': {
+                    return [
+                        ...state,
+                        {
+                            ...menu.mini,
+                            ...show(mini)
+                        }
+                    ];
+                }
+                case 'к' :{
+                    return [
+                        ...state,
+                        {
+                            ...menu.kur,
+                            count: +count,
+                            price: ((menu.kur.price + result) * count),
+                            add: {...add},
+                            extra: {...nameOfAdd}
+                        }
+                    ];
+
+                }
+            }
             if (action.title[0] === 'м') {
-                return [
-                    ...state,
-                    {
-                        ...menu.mini,
-                        name: name + " " + nameOfAdd,
-                    }
-                ];
+
             }
             if (action.title[1] === 'р') {
                 return [
@@ -184,15 +166,7 @@ const kebab = (state = [initial], action) => {
                     }
                 ];
             } else if (action.title[0] === 'к') {
-                return [
-                    ...state,
-                    {
-                        ...menu.kur,
-                        name: name + " " + nameOfAdd,
-                        add: {...add},
-                        extra: {...nameOfAdd}
-                    }
-                ];
+
             } else {
                 return state
             }

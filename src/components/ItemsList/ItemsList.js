@@ -8,7 +8,7 @@ const ItemsList = ({data}) => {
         <ul>
             {kebab.map((item, i) => {
                     return (
-                        <Item key={i}  name={item.name} price={item.price}/>
+                        <Item key={i} extra={item.extra} count ={item.count} name={item.name} price={item.price}/>
                     )
                 }
             ).reverse()}
