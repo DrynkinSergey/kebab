@@ -87,3 +87,15 @@ ul li{
   background-color: green;
   border-color: green;
 }
+.del{
+  opacity: 0;
+  background-color: red;
+  height: 20px;
+  width: 30px;
+  border:none;
+  margin-right: 20px;
+  padding: 0;
+}
+.item:hover .del{
+ opacity: 1;
+}

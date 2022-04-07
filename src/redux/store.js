@@ -1,41 +1,31 @@
 import {createStore} from "redux";
+import uniqid from 'uniqid';
 import {menu} from "./menu";
 
 let count = null;
 const initial = {
+    uniqId:uniqid(),
     id: null,
     name: null,
     price: null,
 }
 
-const m = 'Мини',
-    k = 'Куринная',
-    fri = 'Фри',
-    souce = 'Соус / Кетчуп',
-    uzvar = 'Узвар',
-    airan = 'Айран',
-    dener = 'Денер',
-    miniAr = 'Мини араб';
 
 
 const kebab = (state = [initial], action) => {
-    const {mini,kur} = menu;
+    const {mini,kur,miniArab,Arab} = menu.kebab;
     switch (action.type) {
 
         case "ADD_ITEM": {
-            let nameOfAdd, name;
+            let nameOfAdd;
 
-            action.title.match(/\d/g) ? count = action.title.match(/\d/g).join('') : count = 1;
-            if (count !== 1) {
-                name = `${name} x${count}`
-            }
 
             if (action.title[1] === 'р') {
                 nameOfAdd = action.title.match(/\W/g).slice(2);
             } else {
                 nameOfAdd = action.title.match(/\W/g).slice(1);
             }
-
+            action.title.match(/\d/g) ? count = action.title.match(/\d/g).join('') : count = 1;
             const add = action.title.match(/\W/g).slice(1)
                 .map(item => {
                     if (item === 'с' || item === 'а' || item === 'м'  ) {
@@ -50,16 +40,11 @@ const kebab = (state = [initial], action) => {
                 return sum + elem;
             }, 0);
 
-            if (action.title[0] === '.') {
-                return [
-                    ...state,
-                    {
-                        ...initial
-                    }
-                ];
-            }
+
+
             const show = (target) =>{
                 return {
+                    uniqId:uniqid(),
                     count: +count,
                     price: ((target.price + result) * count),
                     add: {...add},
@@ -68,11 +53,20 @@ const kebab = (state = [initial], action) => {
             }
 
             switch (action.title[0]) {
+
+                case '.': {
+                    return [
+                        ...state,
+                        {
+                               ...initial
+                        }
+                    ];
+                }
                 case 'м': {
                     return [
                         ...state,
                         {
-                            ...menu.mini,
+                            ...mini,
                             ...show(mini)
                         }
                     ];
@@ -81,98 +75,37 @@ const kebab = (state = [initial], action) => {
                     return [
                         ...state,
                         {
-                            ...menu.kur,
-                            count: +count,
-                            price: ((menu.kur.price + result) * count),
-                            add: {...add},
-                            extra: {...nameOfAdd}
+                            ...kur,
+                            ...show(kur)
                         }
                     ];
-
+                }
+                case 'а' :{
+                    return [
+                        ...state,
+                        {
+                            ...miniArab,
+                            ...show(miniArab)
+                        }
+                    ];
+                }
+                case 'А' :{
+                    return [
+                        ...state,
+                        {
+                            ...Arab,
+                            ...show(Arab)
+                        }
+                    ];
+                }
+                default: {
+                    return state;
                 }
             }
-            if (action.title[0] === 'м') {
 
-            }
-            if (action.title[1] === 'р') {
-                return [
-                    ...state,
-                    {
-                        ...menu.miniArab,
-                        name: name + " " + nameOfAdd,
-                        add: {...add}
-                    }
-                ];
-            }
-            if (action.title[0] === 'А') {
-                return [
-                    ...state,
-                    {
-                        ...menu.Arab,
-                        name: name + " " + nameOfAdd,
-                        add: {...add}
-                    }
-                ];
-            }
-            if (action.title[0] === 'ф') {
-                return [
-                    ...state,
-                    {
-                        id: 3,
-                        name: name,
-                        price: 40 * count,
-                    }
-                ];
-            }
-            if (action.title[0] === 'с') {
-                return [
-                    ...state,
-                    {
-                        id: 4,
-                        name: name,
-                        price: 5 * count,
-                    }
-                ];
-            }
-            if (action.title[0] === 'а') {
-                return [
-                    ...state,
-                    {
-                        id: 4,
-                        name: name,
-                        price: 25 * count,
-                    }
-                ];
-            }
-            if (action.title[0] === 'у') {
-                return [
-                    ...state,
-                    {
-                        id: 4,
-                        name: name,
-                        price: 20 * count,
-                    }
-                ];
-            }
-            if (action.title[0] === 'д') {
-                return [
-                    ...state,
-                    {
-                        id: 4,
-                        name: name + " " + nameOfAdd,
-                        price: 57 * count,
-                        add: {...add},
-                        extra: {...nameOfAdd}
-                    }
-                ];
-            } else if (action.title[0] === 'к') {
-
-            } else {
-                return state
-            }
         }
         case "REMOVE_ITEM": {
-            return state.filter((kebab) => kebab.id !== action.id);
+            return state.filter((kebab) => kebab.uniqId !== action.id);
         }
 
         default: {
