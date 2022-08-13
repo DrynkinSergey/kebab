@@ -1,0 +1,23 @@
+.wrapper{
+  margin: 0 auto;
+  max-width: 1000px;
+  display: flex;
+  background-color: #f8c762;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+.itemList{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-width: 100%;
+  gap: 20px;
+  .item *{
+    margin-right: 20px;
+    h2{
+      width: 25%;
+    }
+  }
+}

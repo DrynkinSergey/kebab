@@ -1,7 +1,6 @@
 
-export const menu = {
-    kebab:{
-        kur : {
+export const menu = [
+    {       searchPhrase: 'kur',
             id: 1,
             name:'Куринная',
             price: 85 ,
@@ -12,7 +11,7 @@ export const menu = {
                 bread:150
             }
         },
-        mini : {
+      /*  mini : {
             id: 2,
             name:'Мини',
             price: 55 ,
@@ -44,10 +43,5 @@ export const menu = {
                 souce:100,
                 bread:150
             }
-        }
-    },
-    napitki:{},
-    fritur:{
-    },
-
-}
+        }*/
+]
