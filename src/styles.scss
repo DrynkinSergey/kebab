@@ -1,14 +1,89 @@
+body{
+background-color: black;
+}
+input{
+  background-color: #5f70e7;
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: #fff;
+  &::placeholder{
+    color: #fff;
+  }
+}
+button{
+  background-color: #5f70e7;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 12px;
+  margin: 10px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.d-flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .wrapper{
+  color:red;
   margin: 0 auto;
   max-width: 1000px;
   display: flex;
-  background-color: #f8c762;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   padding: 50px;
 }
+.visible{
+  visibility: visible;
+}
+.hidden{
+  visibility: hidden;
+}
+.currentOrderWrapper{
+  h1,h2{
+    text-align: center;
+  }
+  width: 300px;
+  border: 2px solid #fff;
+  min-height: 200px;
+  background-color: #5f70e7;
+  position: fixed;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 15px;
+  bottom: 15px;
+  right: 15px;
+  .currentOrder{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    width: 250px;
+  }
+}
+.addOrderForm{
+  input{
+
+  }
+  width: 100%;
+  position: sticky;
+  padding: 20px;
+  top: 0;
+  background-color: black;
+
+}
 .itemList{
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 2px solid #5f70e7;
+  padding: 5px 15px;
+  background-color:   #7aff89;
+  color: black;
+  font-size: 1.2rem;
+  font-style: italic;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -20,4 +95,8 @@
       width: 25%;
     }
   }
+
+}
+footer{
+  padding: 100px;
 }

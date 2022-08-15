@@ -1,46 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../../styles.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {addOrder, addSingleOrder, addToTempOrder, setTotal} from "../../redux/slices/ordersSlice";
+import {addOrder, addSingleOrder, addToTempOrder, setSummForDay, setTotal} from "../../redux/slices/ordersSlice";
 import {menu} from '../../redux/menu'
+import CurrentOrder from "../CurrentOrder/CurrentOrder";
+import ItemsList from "../ItemsList/ItemsList";
 
 const App = () => {
     const dispatch = useDispatch();
-    const [tempOrders, setTempOrders] = useState([])
-    const [tempTotal, setTempTotal] = useState(0)
-    const orders = useSelector(state => state.order.orders)
+    const [tempTotal, setTempTotal] = useState(1)
     const singleOrder = useSelector(state => state.order.singleOrder)
-    const [name,setName] = useState({})
+    const [value,setValue] = useState('')
+    const myRef = useRef(null)
 
 
-    function search(nameKey, myArray,count){
+    const search =  (nameKey, myArray,count=1) =>{
         for (let i=0; i < myArray.length; i++) {
             if (myArray[i].searchPhrase === nameKey) {
-                return({
-                    name:myArray[i].name,
-                    count,
-                    price: 90*count,
-                    extra: 'chease',
-                })
+                return {...myArray[i], count}
             }
         }
     }
 
-
-
-
     const addOrderHandler = () => {
         dispatch(addOrder(tempTotal))
-
+        dispatch(setSummForDay(tempTotal))
+        myRef.current.scrollIntoView()
     }
-    const addSingleOrderHandler = async () => {
-       setName(await search('kur', menu,3)) ;
-
-        dispatch(addSingleOrder(name))
-
+    const addSingleOrderHandler =  () => {
+        dispatch(addSingleOrder(search(value,menu)))
     }
     useEffect(() => {
-        let res = singleOrder.reduce((prev,current) => prev+current.price
+        let res = singleOrder.reduce((prev,current) => prev+current.price*current.count
             ,0)
         setTempTotal(res)
 
@@ -48,32 +39,26 @@ const App = () => {
 
     return (
         <div className='wrapper'>
-            <input  onChange={(e)=> setName(e.currentTarget.value)}/>
+            <CurrentOrder total={tempTotal}/>
+           <div className='addOrderForm'>
+
+               <div style={{width:'100%'}}>
+                   <div className='d-flex'>
+                       <input placeholder='Введите заказ...' value={value} onChange={(e)=> setValue(e.currentTarget.value)}/>
+                       <button disabled={!value} onClick={addSingleOrderHandler}>Добавить заказ</button>
+                       <button disabled={!singleOrder.length} onClick={addOrderHandler}>Сохранить в заказы</button>
+                   </div>
+
+               </div>
+           </div>
             <div style={{width:'100%'}}>
-                <button onClick={addSingleOrderHandler}>Добавить заказ</button>
-                <button onClick={addOrderHandler}>Сохранить в заказы</button>
-                {
-                    orders.map((item,index) => {
-                        return(
-                            <div className='itemList' key={item}>
-                            <p>{index+1}.</p>
-                        {item.map((obj,index) =>
-                            <div className='item' key={index}>
-                            <>
-                                {obj.name&&<span>{obj.name}</span>}
-                                {obj.price&&<span>{obj.price}</span>}
-                                {obj.count&&<span>{obj.count}</span>}
-                                </>
-                                {obj.total&&<span className='itemPrice'>Сумма заказа: {obj.total}</span>}
-                                <br/>
-                            </div>)
+            <ItemsList/>
+                </div>
 
-                        }
-                            </div> ) })
-                }
-            </div>
             <br/>
+            <footer ref={myRef}>
 
+            </footer>
         </div>
     )
 };
