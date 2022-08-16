@@ -84,7 +84,7 @@ const App = () => {
                     <div className='d-flex'>
                         <input ref={inputRef} placeholder='Введите заказ...' onKeyDown={(e) => addSingleOrderHandler(e)}
                                value={value}
-                               onChange={(e) => setValue(e.currentTarget.value)}/>
+                               onChange={(e) => setValue(e.currentTarget.value.toLowerCase())}/>
                         <button disabled={!singleOrder.length} onClick={addOrderHandler}>Сохранить в заказы</button>
                     </div>
 

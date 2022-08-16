@@ -6,13 +6,13 @@ const ItemList = () => {
 
     let items = orders.map((item, index) => {
         return (
-            <div className='itemList' key={item}>
+            <div className='itemList show' key={item}>
                 <span style={{color:'black', fontWeight:'bold'}}>Заказ №{index + 1}.</span>
                 {item.map((obj, index) =>
                     <div className='item' key={index}>
                         <>
                             {obj.name && <span>{obj.name}</span>}
-                            {obj.price && <span>{obj.extra.map(item => `${item} `)}</span>}
+                            {obj.price && <span className='extra'>{obj.extra.map(item => `${item} `)}</span>}
 
                             {obj.count && <span>{obj.count}</span>}
                             {obj.price && <span>{obj.price} грн.</span>}

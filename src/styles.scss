@@ -1,22 +1,32 @@
+$bgColorItem: #b19e85;
+$textColor: black;
+
+
 body{
-background-color: black;
 }
 input{
-  background-color: #5f70e7;
+  background-color: $bgColorItem;
   padding: 8px 12px;
   border-radius: 5px;
-  color: #fff;
+  color: $textColor;
+  -webkit-box-shadow: 2px 3px 5px 1px #000000;
+  box-shadow: 2px 3px 5px 1px #000000;
+
   &::placeholder{
-    color: #fff;
+    color: $textColor;
   }
 }
 button{
-  background-color: #5f70e7;
-  color: #fff;
+  background-color:  $bgColorItem;
+  color: $textColor;
   border-radius: 5px;
   border: none;
   padding: 5px 12px;
   margin: 10px;
+  -webkit-box-shadow: 2px 3px 5px 1px #000000;
+  box-shadow: 2px 3px 5px 1px #000000;
+
+
   &:hover{
     cursor: pointer;
   }
@@ -34,7 +44,7 @@ button{
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 50px;
+  padding: 0 15px;
 }
 .visible{
   visibility: visible;
@@ -43,19 +53,22 @@ button{
   visibility: hidden;
 }
 .currentOrderWrapper{
+  -webkit-box-shadow: 5px 11px 20px 4px #000000;
+  box-shadow: 5px 11px 20px 4px #000000;
+
   h1,h2{
     text-align: center;
   }
   width: 300px;
   border: 2px solid #fff;
   min-height: 200px;
-  background-color: #5f70e7;
+  background-color: $bgColorItem;
   position: fixed;
-  color: #fff;
+  color: $textColor;
   font-weight: bold;
   border-radius: 10px;
   padding: 15px;
-  bottom: 15px;
+  bottom: 25px;
   right: 15px;
   .currentOrder{
     display: flex;
@@ -66,22 +79,22 @@ button{
 }
 .addOrderForm{
   input{
+    font-size: 1.2rem;
 
   }
   width: 100%;
   position: sticky;
   padding: 20px;
   top: 0;
-  background-color: black;
+  background-color:  white;
 
 }
 .itemList{
   margin-bottom: 10px;
   border-radius: 5px;
-  border: 2px solid #5f70e7;
   padding: 5px 15px;
-  background-color:   #5f70e7;
-  color: #ffffff;
+  background-color:   $bgColorItem;
+  color: $textColor;
   font-size: 1.4rem;
   font-style: italic;
   display: flex;
@@ -89,18 +102,19 @@ button{
   flex-direction: column;
   max-width: 100%;
   gap: 20px;
-  .item span{
-    width: 200px;
-  }
+  -webkit-box-shadow: 2px 3px 5px 1px #000000;
+  box-shadow: 2px 3px 5px 1px #000000;
+  transition: all 1.7s linear;
+
   .item *{
-    margin-right: 40px;
+    margin-right: 10px;
 
     h2{
       width: 25%;
     }
   }
 .itemPrice{
-  color: white;
+  color: $textColor;
   float: right;
   font-weight: bold;
   text-decoration: underline;
@@ -108,4 +122,24 @@ button{
 }
 footer{
   padding: 100px;
+}
+.extra{
+  color: $textColor;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+@keyframes showUp {
+  0%{
+    opacity: 0;
+    transform: translate(25px, 30px);
+  }
+  100%{
+  opacity:1;
+    transform: translateY(0);
+
+  }
+}
+.show{
+  animation-name: showUp;
+  animation-duration: 1s;
 }
