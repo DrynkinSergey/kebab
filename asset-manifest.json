@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/kebab/static/css/main.1dddf216.css",
+    "main.js": "/kebab/static/js/main.291c4e1c.js",
+    "index.html": "/kebab/index.html",
+    "main.1dddf216.css.map": "/kebab/static/css/main.1dddf216.css.map",
+    "main.291c4e1c.js.map": "/kebab/static/js/main.291c4e1c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1dddf216.css",
+    "static/js/main.291c4e1c.js"
+  ]
+}
