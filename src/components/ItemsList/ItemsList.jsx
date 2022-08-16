@@ -12,10 +12,13 @@ const ItemList = () => {
                     <div className='item' key={index}>
                         <>
                             {obj.name && <span>{obj.name}</span>}
-                            {obj.price && <span>{obj.price}</span>}
+                            {obj.price && <span>{obj.extra.map(item => `${item} `)}</span>}
+
                             {obj.count && <span>{obj.count}</span>}
+                            {obj.price && <span>{obj.price} грн.</span>}
+
                         </>
-                        {obj.total && <span className='itemPrice'>Сумма заказа: {obj.total}</span>}
+                        {obj.total && <span className='itemPrice'>Сумма заказа: {obj.total} грн.</span>}
                         <br/>
                     </div>)
                 }

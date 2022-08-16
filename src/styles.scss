@@ -89,8 +89,12 @@ button{
   flex-direction: column;
   max-width: 100%;
   gap: 20px;
+  .item span{
+    width: 200px;
+  }
   .item *{
-    margin-right: 20px;
+    margin-right: 40px;
+
     h2{
       width: 25%;
     }
