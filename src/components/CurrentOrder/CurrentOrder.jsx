@@ -9,11 +9,10 @@ const CurrentOrder = ({total}) => {
             <h1>Текущий заказ:</h1>
             {singleOrder.map((item, index) => {
                 return <div key={index} className='currentOrder'>
-                    <span>{item.name}</span>
+                    <span className='name'>{item.name}</span>
                     <span>{item.extra.map(item => `${item} `)}</span>
-                    <span>{item.count}</span>
-                    <span>{item.price}</span>
-
+                    <span className='countPos'>{item.count}</span>
+                    <span className='price'>{item.price}</span>
                 </div>
             })}
             <h2>{total}</h2>

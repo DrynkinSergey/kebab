@@ -15,10 +15,10 @@ const ItemList = () => {
                             {obj.price && <span className='extra'>{obj.extra.map(item => `${item} `)}</span>}
 
                             {obj.count && <span>{obj.count}</span>}
-                            {obj.price && <span>{obj.price} грн.</span>}
+                            {obj.price && <span>{obj.price}</span>}
 
                         </>
-                        {obj.total && <span className='itemPrice'>Сумма заказа: {obj.total} грн.</span>}
+                        {obj.total && <span className='itemPrice'>{obj.total} грн.</span>}
                         <br/>
                     </div>)
                 }

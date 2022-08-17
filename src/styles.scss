@@ -21,7 +21,7 @@ button{
   color: $textColor;
   border-radius: 5px;
   border: none;
-  padding: 5px 12px;
+  padding: 12px 12px;
   margin: 10px;
   -webkit-box-shadow: 2px 3px 5px 1px #000000;
   box-shadow: 2px 3px 5px 1px #000000;
@@ -68,13 +68,22 @@ button{
   font-weight: bold;
   border-radius: 10px;
   padding: 15px;
-  bottom: 25px;
+  top: 15px;
   right: 15px;
   .currentOrder{
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
     width: 250px;
+    span{
+      min-width: 85px;
+    }
+    .name{
+      min-width: 150px;
+    }
+    .countPos{
+      min-width: 30px;
+    }
   }
 }
 .addOrderForm{
@@ -84,12 +93,14 @@ button{
   }
   width: 100%;
   position: sticky;
+  z-index: 999;
   padding: 20px;
   top: 0;
   background-color:  white;
 
 }
 .itemList{
+  position: relative;
   margin-bottom: 10px;
   border-radius: 5px;
   padding: 5px 15px;
@@ -105,17 +116,22 @@ button{
   -webkit-box-shadow: 2px 3px 5px 1px #000000;
   box-shadow: 2px 3px 5px 1px #000000;
   transition: all 1.7s linear;
+  .item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  .item *{
-    margin-right: 10px;
-
-    h2{
-      width: 25%;
+    span {
+      min-width: 250px;
     }
-  }
+    }
+
+
 .itemPrice{
   color: $textColor;
-  float: right;
+  position: absolute;
+  top: 0;
+  right: -150px;
   font-weight: bold;
   text-decoration: underline;
 }
