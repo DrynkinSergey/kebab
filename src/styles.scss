@@ -68,6 +68,7 @@ button{
   font-weight: bold;
   border-radius: 10px;
   padding: 15px;
+  z-index: 9999;
   top: 15px;
   right: 15px;
   .currentOrder{
@@ -137,7 +138,7 @@ button{
 }
 }
 footer{
-  padding: 100px;
+  padding: 160px;
 }
 .extra{
   color: $textColor;
@@ -158,4 +159,30 @@ footer{
 .show{
   animation-name: showUp;
   animation-duration: 1s;
+}
+.statistic {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  z-index: 9999;
+  background-color: rgba(#030303,0.3);
+
+ &__content{
+   width: 80vw;
+   margin: 100px auto;
+   background-color: #ffffff;
+   height: 80vh;
+   position: relative;
+   svg{
+     position: absolute;
+     right: 5px;
+     top: 5px;
+     &:hover{
+       cursor: pointer;
+     }
+   }
+ }
 }

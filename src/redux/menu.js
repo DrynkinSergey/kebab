@@ -1,4 +1,3 @@
-
 const cheese = 12,
     mash = 9,
     potato = 9,
@@ -8,7 +7,7 @@ const cheese = 12,
 
 const kur = 90,
     mini = 55,
-    miniArab = 180,
+    miniArab = 80,
     arab = 140,
     kurKur = 145,
     kavkaz = 140,
@@ -38,8 +37,8 @@ const kur = 90,
     syrPal = 120;
 const airan = 30,
     uzvar = 25,
-     karkade = 25,
-    limonad  = 25,
+    karkade = 25,
+    limonad = 25,
     p3 = 20,
     p5 = 25,
     p8 = 35;
@@ -52,8 +51,8 @@ const margo = 150,
     myaso = 180,
     syr = 185,
     kaban = 200,
-    buff= 190,
-     more = 200,
+    buff = 190,
+    more = 200,
     vegan = 160,
     pepper = 170;
 
@@ -412,8 +411,4 @@ export const extra = [
         price: corn,
     },
 ]
-console.log("Cокращения")
-menu.forEach(item => console.log(item.searchPhrase, ' - ', item.name))
-console.log("Добавки")
-extra.forEach(item => console.log(item.searchPhrase, ' - ', item.name))
 

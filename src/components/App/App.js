@@ -5,16 +5,20 @@ import {addOrder, addSingleOrder, setSummForDay} from "../../redux/slices/orders
 import {extra, menu} from '../../redux/menu'
 import CurrentOrder from "../CurrentOrder/CurrentOrder";
 import ItemsList from "../ItemsList/ItemsList";
+import uniqid from 'uniqid';
+import Statistic from "../Statistics/Statistics";
 
 const App = () => {
     const dispatch = useDispatch();
     const [tempTotal, setTempTotal] = useState(1)
+    const [showStat, setShowStat] = useState(false)
     const singleOrder = useSelector(state => state.order.singleOrder)
     const [value, setValue] = useState('')
     const myRef = useRef(null)
     const inputRef = useRef()
     const availableData = menu.map(item => item.searchPhrase)
     const availableExtra = extra.map(item => item.searchPhrase)
+    let id;
 
     //find a number in string
     //getNum from str, if null - num === 1
@@ -31,6 +35,7 @@ const App = () => {
     }
 
     const search = (nameKey, myArray, count = 1) => {
+        const id = uniqid()
         let res;
         for (let i = 0; i < myArray.length; i++) {
             if (myArray[i].searchPhrase === nameKey) {
@@ -40,25 +45,28 @@ const App = () => {
         let price2 = res.price
         let extra2 = res.extra
 
-        for (let i=0;i<extra2.length;i++){
-            for (let j=0;j<extra.length;j++){
-                if(extra2[i]===extra[j].searchPhrase){
-                    price2=price2 + (extra[j].price * res.count)
+        for (let i = 0; i < extra2.length; i++) {
+            for (let j = 0; j < extra.length; j++) {
+                if (extra2[i] === extra[j].searchPhrase) {
+                    price2 = price2 + (extra[j].price * res.count)
                 }
             }
         }
 
-        return {...res, price:price2};
+        return {...res,id, price: price2};
     }
 
     const addOrderHandler = () => {
-        dispatch(addOrder(tempTotal))
+        id = uniqid();
+
+        dispatch(addOrder(tempTotal,id))
         dispatch(setSummForDay(tempTotal))
         myRef.current.scrollIntoView()
         inputRef.current.focus()
     }
     const addSingleOrderHandler = (e) => {
         if (e.key === 'Enter') {
+            id = uniqid();
             if (availableData.includes(getName(value))) {
                 dispatch(addSingleOrder(search(getName(value), menu, findNumber(value))))
                 setValue('')
@@ -67,6 +75,9 @@ const App = () => {
     }
     useEffect(() => {
         inputRef.current.focus();
+        id = uniqid();
+        console.log(id);
+
     }, [])
     useEffect(() => {
         let res = singleOrder.reduce((prev, current) => prev + current.price
@@ -82,16 +93,20 @@ const App = () => {
 
                 <div style={{width: '100%'}}>
                     <div className='d-flex'>
-                        <input ref={inputRef} placeholder='Введите заказ...' onKeyDown={(e) => addSingleOrderHandler(e)}
+                        <input ref={inputRef}
+                               placeholder='Введите заказ...'
+                               onKeyDown={(e) => addSingleOrderHandler(e)}
                                value={value}
                                onChange={(e) => setValue(e.currentTarget.value.toLowerCase())}/>
-                        <button disabled={!singleOrder.length} onClick={addOrderHandler}>Сохранить в заказы</button>
+                        <button disabled={!singleOrder.length}
+                                onClick={addOrderHandler}>Сохранить в заказы</button>
+                        <button onClick={()=>setShowStat(true)}>Статистика</button>
                     </div>
-
                 </div>
             </div>
             <div style={{width: '100%'}}>
-                <ItemsList/>
+                <ItemsList id={id}/>
+                {showStat&&<Statistic showStatistic={showStat} closeStat = {setShowStat}/>}
             </div>
 
             <br/>
