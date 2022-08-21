@@ -246,7 +246,7 @@ export const menu = [
         price: midii,
     },
     {
-        searchPhrase: 'фс',
+        searchPhrase: 'фы',
         name: 'Сырные палочки',
         count: 1,
         price: syrPal,

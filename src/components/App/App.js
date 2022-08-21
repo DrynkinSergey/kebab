@@ -35,9 +35,7 @@ const App = () => {
         let spaceIndex = noNum.match(/ /);
         return spaceIndex ? noNum.slice(spaceIndex.index + 1).trim().split('') : []
     }
-    const getCoutn = () => {
-        console.log(orders);
-    }
+
     const search = (nameKey, myArray, count = 1) => {
         const id = uniqid()
         let res;
@@ -65,7 +63,6 @@ const App = () => {
 
         dispatch(addOrder({tempTotal,id}))
         myRef.current.scrollIntoView()
-        getCoutn()
         inputRef.current.focus()
     }
     const addSingleOrderHandler = (e) => {
@@ -105,7 +102,6 @@ const App = () => {
                                 onClick={addOrderHandler}>Сохранить в заказы</button>
                         <button onClick={()=>setShowStat(true)}>Статистика</button>
                     </div>
-
                 </div>
             </div>
             <div style={{width: '100%'}}>

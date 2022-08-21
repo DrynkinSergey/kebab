@@ -183,12 +183,41 @@ footer{
    background-color: #ffffff;
    height: 80vh;
    position: relative;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   justify-content: center;
+   h3{
+     color: black;
+   }
    svg{
      position: absolute;
      right: 5px;
      top: 5px;
      &:hover{
        cursor: pointer;
+     }
+   }
+   .info2{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 70%;
+   }
+   .info{
+     color: black;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 100%;
+    &_other{
+      color:black;
+      font-size: 2rem;
+      display: inline;
+    }
+     &_item{
+       width: 50%;
+       text-align: center;
      }
    }
  }
