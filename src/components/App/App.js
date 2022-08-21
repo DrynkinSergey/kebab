@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import '../../styles.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {addOrder, addSingleOrder, setSummForDay} from "../../redux/slices/ordersSlice";
+import {addOrder, addSingleOrder} from "../../redux/slices/ordersSlice";
 import {extra, menu} from '../../redux/menu'
 import CurrentOrder from "../CurrentOrder/CurrentOrder";
 import ItemsList from "../ItemsList/ItemsList";
@@ -13,6 +13,8 @@ const App = () => {
     const [tempTotal, setTempTotal] = useState(1)
     const [showStat, setShowStat] = useState(false)
     const singleOrder = useSelector(state => state.order.singleOrder)
+    const {orders} = useSelector(state => state.order)
+    const   totalSumm = useSelector(state => state.order.sum)
     const [value, setValue] = useState('')
     const myRef = useRef(null)
     const inputRef = useRef()
@@ -33,7 +35,9 @@ const App = () => {
         let spaceIndex = noNum.match(/ /);
         return spaceIndex ? noNum.slice(spaceIndex.index + 1).trim().split('') : []
     }
-
+    const getCoutn = () => {
+        console.log(orders);
+    }
     const search = (nameKey, myArray, count = 1) => {
         const id = uniqid()
         let res;
@@ -57,11 +61,11 @@ const App = () => {
     }
 
     const addOrderHandler = () => {
-        id = uniqid();
+       const id = uniqid();
 
-        dispatch(addOrder(tempTotal,id))
-        dispatch(setSummForDay(tempTotal))
+        dispatch(addOrder({tempTotal,id}))
         myRef.current.scrollIntoView()
+        getCoutn()
         inputRef.current.focus()
     }
     const addSingleOrderHandler = (e) => {
@@ -76,7 +80,6 @@ const App = () => {
     useEffect(() => {
         inputRef.current.focus();
         id = uniqid();
-        console.log(id);
 
     }, [])
     useEffect(() => {
@@ -102,10 +105,12 @@ const App = () => {
                                 onClick={addOrderHandler}>Сохранить в заказы</button>
                         <button onClick={()=>setShowStat(true)}>Статистика</button>
                     </div>
+
                 </div>
             </div>
             <div style={{width: '100%'}}>
-                <ItemsList id={id}/>
+                <ItemsList dispatch={dispatch}/>
+                <h1 style={{textAlign:'center'}}>{totalSumm}</h1>
                 {showStat&&<Statistic showStatistic={showStat} closeStat = {setShowStat}/>}
             </div>
 

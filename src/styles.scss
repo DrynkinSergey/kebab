@@ -160,6 +160,13 @@ footer{
   animation-name: showUp;
   animation-duration: 1s;
 }
+.hide{
+
+  display: none !important;
+}
+.item:empty{
+  display: none;
+}
 .statistic {
   position: fixed;
   top: 0;
