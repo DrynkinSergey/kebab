@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/kebab/static/css/main.cd02e14d.css",
-    "main.js": "/kebab/static/js/main.07e35f39.js",
+    "main.css": "/kebab/static/css/main.b8fff85c.css",
+    "main.js": "/kebab/static/js/main.63d83aae.js",
     "index.html": "/kebab/index.html",
-    "main.cd02e14d.css.map": "/kebab/static/css/main.cd02e14d.css.map",
-    "main.07e35f39.js.map": "/kebab/static/js/main.07e35f39.js.map"
+    "main.b8fff85c.css.map": "/kebab/static/css/main.b8fff85c.css.map",
+    "main.63d83aae.js.map": "/kebab/static/js/main.63d83aae.js.map"
   },
   "entrypoints": [
-    "static/css/main.cd02e14d.css",
-    "static/js/main.07e35f39.js"
+    "static/css/main.b8fff85c.css",
+    "static/js/main.63d83aae.js"
   ]
 }
