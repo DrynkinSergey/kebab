@@ -11,17 +11,14 @@ import NamesHint from "../NamesHint/NamesHint";
 
 const App = () => {
     const dispatch = useDispatch();
-    const [dataLS, setDataLS] = useState([]);
     const [tempTotal, setTempTotal] = useState(1)
     const [showStat, setShowStat] = useState(false)
     const singleOrder = useSelector(state => state.order.singleOrder)
     const {orders} = useSelector(state => state.order)
-    const   totalSumm = useSelector(state => state.order.sum)
     const [value, setValue] = useState('')
     const myRef = useRef(null)
     const inputRef = useRef()
     const availableData = menu.map(item => item.searchPhrase)
-    const availableExtra = extra.map(item => item.searchPhrase)
     let id;
 
     //find a number in string
@@ -119,7 +116,6 @@ const App = () => {
             </div>
             <div style={{width: '100%'}}>
                 <ItemsList dispatch={dispatch}/>
-                <h1 style={{textAlign:'center'}}>{totalSumm}</h1>
                 {showStat&&<Statistic showStatistic={showStat} closeStat = {setShowStat}/>}
             </div>
 

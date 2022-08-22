@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
-import {compound} from "../../redux/slices/compound";
 
-const Statistic = ({showStatistic, closeStat}) => {
-    const [countOfPos, setCountOfPos] = useState(0);
-    const [value, setValue] = useState('Мини');
+const Statistic = ({ closeStat}) => {
+    // const [countOfPos, setCountOfPos] = useState(0);
     const {orders, sum} = useSelector(state => state.order)
     const [counters, setCounters] = useState({
             pizzas: {count:0, sum:0},
@@ -28,18 +26,17 @@ const Statistic = ({showStatistic, closeStat}) => {
         return count;
     }
     const getReg = () => {
-        let count = 0;
         orders.forEach(item => {
                 let i = 2;
                 while (i < item.length) {
                     if (item[i].searchPhrase.match(/п[^лнб]/i)) {
-                        setCounters({...counters, pizzas: counters.pizzas.count += item[i].count, sum: counters.pizzas.sum += item[i].count * item[i].price })
+                        setCounters({...counters, pizzas:{count:counters.pizzas.count += item[i].count , sum:counters.pizzas.sum += item[i].count * item[i].price}})
                     } else if (item[i].searchPhrase.match(/к./i)) {
-                        setCounters({...counters, kebab: counters.kebab.count += item[i].count, sum: counters.kebab.sum += item[i].count * item[i].price })
+                        setCounters({...counters, kebab:{count:counters.kebab.count += item[i].count , sum:counters.kebab.sum += item[i].count * item[i].price}})
                     } else if (item[i].searchPhrase.match(/ф./i)) {
-                        setCounters({...counters, fri: counters.fri.count += item[i].count, sum: counters.fri.sum += item[i].count * item[i].price })
+                        setCounters({...counters, fri:{count:counters.fri.count += item[i].count , sum:counters.fri.sum += item[i].count * item[i].price}})
                     } else if (item[i].searchPhrase.match(/н./i)) {
-                        setCounters({...counters, napitki: counters.napitki.count += item[i].count, sum: counters.napitki.sum += item[i].count * item[i].price })
+                        setCounters({...counters, napitki:{count:counters.napitki.count += item[i].count , sum:counters.napitki.sum += item[i].count * item[i].price}})
                     }
                     i++;
                 }
@@ -48,7 +45,11 @@ const Statistic = ({showStatistic, closeStat}) => {
 
 
     }
-    const items = {
+    useEffect(() => {
+       getReg();
+    }, [orders]);
+
+    /*const items = {
         miniCount: {count: getCount('Мини'), name: 'Mini'},
         kurCount: getCount('Куринная'),
         arab: getCount('Араб'),
@@ -56,8 +57,8 @@ const Statistic = ({showStatistic, closeStat}) => {
         airan: getCount('Айран'),
         fri: getCount('Фри'),
         sel: getCount('Селянка'),
-    }
-    const ShowStat = ({name, counter = countOfPos}) => {
+    }*/
+    /*const ShowStat = ({name, counter = countOfPos}) => {
         return (
             <div className='info_item'>
                 <h1>{compound[name].name}</h1>
@@ -74,7 +75,7 @@ const Statistic = ({showStatistic, closeStat}) => {
                 </ul>
             </div>
         )
-    }
+    }*/
 
 
     return (
@@ -87,9 +88,7 @@ const Statistic = ({showStatistic, closeStat}) => {
                 </svg>
                 <h1>Статистика</h1>
                 <h2>Доход: {sum}</h2>
-                <button onClick={() => getReg()}>
-                    Расчет
-                </button>
+
                 <div>
                     <h2> Напитки - {counters.napitki.count} Доход: {counters.napitki.sum}
                     </h2>
