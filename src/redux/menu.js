@@ -3,7 +3,10 @@ const cheese = 12,
     potato = 9,
     pineaple = 12,
     olives = 12,
-    corn = 12;
+    corn = 12,
+    ohSos = 20,
+    basSos = 15,
+    venSos = 10;
 
 const kur = 90,
     mini = 55,
@@ -278,7 +281,7 @@ export const menu = [
         price: karkade,
     },
     {
-        searchPhrase: 'пм',
+        searchPhrase: 'пл',
         name: 'Пепси 0.3',
         count: 1,
         price: p3,
@@ -410,5 +413,25 @@ export const extra = [
         name: 'кукуруза',
         price: corn,
     },
+    {
+        searchPhrase: 'о',
+        id: 7,
+        name: 'охота',
+        price: ohSos,
+    },
+    {
+        searchPhrase: 'б',
+        id: 8,
+        name: 'бавария',
+        price: basSos,
+    },
+    {
+        searchPhrase: 'в',
+        id: 9,
+        name: 'вена',
+        price: venSos,
+    },
 ]
+
+
 

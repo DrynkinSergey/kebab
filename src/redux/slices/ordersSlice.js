@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
     orders: [],
     singleOrder: [],
+    ordersByDate:[],
     total: 0,
     sum: 0,
 }
@@ -14,10 +15,12 @@ export const orderSlice = createSlice({
         setTotal(state, action) {
             state.total = action.payload;
         },
+        setOrdersByDate(state, action) {
+            state.ordersByDate.push({id:action.payload.id,orders:[...action.payload.orders]});
+        },
 
         addOrder(state, action) {
             state.total = action.payload.tempTotal
-
             state.orders = [...state.orders, [{id:action.payload.id},{total: state.total},...state.singleOrder]];
             state.singleOrder = []
             state.sum = state.orders.reduce((sum,obj) => {
@@ -45,6 +48,6 @@ export const orderSlice = createSlice({
     },
 })
 
-export const {addOrder, addSingleOrder, setTotal,removeOrder,loadOrders} = orderSlice.actions
+export const {addOrder, addSingleOrder, setTotal,removeOrder,loadOrders,setOrdersByDate} = orderSlice.actions
 
 export default orderSlice.reducer

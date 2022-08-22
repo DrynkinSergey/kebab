@@ -1,12 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import '../../styles.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {addOrder, addSingleOrder, loadOrders} from "../../redux/slices/ordersSlice";
+import {addOrder, addSingleOrder, loadOrders, setOrdersByDate} from "../../redux/slices/ordersSlice";
 import {extra, menu} from '../../redux/menu'
 import CurrentOrder from "../CurrentOrder/CurrentOrder";
 import ItemsList from "../ItemsList/ItemsList";
 import uniqid from 'uniqid';
 import Statistic from "../Statistics/Statistics";
+import NamesHint from "../NamesHint/NamesHint";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -98,6 +99,7 @@ const App = () => {
     }, []);
     return (
         <div className='wrapper'>
+            <NamesHint/>
             <CurrentOrder total={tempTotal}/>
             <div className='addOrderForm'>
 
@@ -111,6 +113,7 @@ const App = () => {
                         <button disabled={!singleOrder.length}
                                 onClick={addOrderHandler}>Сохранить в заказы</button>
                         <button onClick={()=>setShowStat(true)}>Статистика</button>
+                        <button onClick={()=>dispatch(setOrdersByDate({orders,id:'22.08.2022'}))}>Закрыть день</button>
                     </div>
                 </div>
             </div>
