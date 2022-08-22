@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import '../../styles.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {addOrder, addSingleOrder} from "../../redux/slices/ordersSlice";
+import {addOrder, addSingleOrder, loadOrders} from "../../redux/slices/ordersSlice";
 import {extra, menu} from '../../redux/menu'
 import CurrentOrder from "../CurrentOrder/CurrentOrder";
 import ItemsList from "../ItemsList/ItemsList";
@@ -10,6 +10,7 @@ import Statistic from "../Statistics/Statistics";
 
 const App = () => {
     const dispatch = useDispatch();
+    const [dataLS, setDataLS] = useState([]);
     const [tempTotal, setTempTotal] = useState(1)
     const [showStat, setShowStat] = useState(false)
     const singleOrder = useSelector(state => state.order.singleOrder)
@@ -85,7 +86,16 @@ const App = () => {
         setTempTotal(res)
 
     }, [singleOrder])
-
+    useEffect(() => {
+        if (orders.length !== 0) {
+            window.localStorage.setItem('orders', JSON.stringify(orders));
+        }
+    }, [orders]);
+    useEffect(() => {
+        if (localStorage.getItem('orders')) {
+            dispatch(loadOrders(JSON.parse(localStorage.getItem('orders'))))
+        }
+    }, []);
     return (
         <div className='wrapper'>
             <CurrentOrder total={tempTotal}/>

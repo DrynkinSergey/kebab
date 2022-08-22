@@ -19,5 +19,21 @@ export const compound = {
         bread: 1,
         price: 55
     },
+    'arab': {
+        name: 'Араб',
+        tomato: 75,
+        cucumbers: 25,
+        souce: 120,
+        bread: 1,
+        price: 140
+    },
+    'miniArab': {
+        name: 'Мини Араб',
+        tomato: 55,
+        cucumbers: 20,
+        souce: 60,
+        bread: 1,
+        price: 80
+    },
 }
 

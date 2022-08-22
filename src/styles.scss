@@ -208,7 +208,6 @@ footer{
      color: black;
      display: flex;
      justify-content: space-between;
-     align-items: center;
      width: 100%;
     &_other{
       color:black;
@@ -216,9 +215,40 @@ footer{
       display: inline;
     }
      &_item{
-       width: 50%;
-       text-align: center;
+       width: 25%;
+       padding: 20px 20px;
+       h1,h2{
+         text-align: center;
+       }
+       ul {
+         width: 100%;
+         padding: 0;
+         li{
+           padding-left: 30%;
+           margin: 0 auto;
+           list-style: none;
+
+         }
+       }
      }
    }
  }
+}
+.itemList:hover .deleteBtn{
+  opacity: 1;
+}
+.deleteBtn{
+  position: absolute;
+  opacity: 0;
+  right: 1%;
+  top: 45%;
+  margin: 0 auto;
+  transition: all .4s ease;
+  &:hover{
+    cursor: pointer;
+  }
+  svg{
+    background-color: red;
+    border-radius: 10px;
+  }
 }

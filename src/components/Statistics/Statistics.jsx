@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import {compound} from "../../redux/slices/compound";
 
@@ -20,28 +20,35 @@ const Statistic = ({showStatistic, closeStat}) => {
         )
         return count;
     }
-    const miniCount = getCount('Мини');
-    const kurCount = getCount('Куринная');
-    const airan = getCount('Айран');
-    const sel = getCount('Селянка');
-    const fri = getCount('Фри');
-
-
+    const items ={
+        miniCount:{count:getCount('Мини'), name:'Mini'},
+        kurCount : getCount('Куринная'),
+        arab : getCount('Араб'),
+        miniArab : getCount('Мини Араб'),
+        airan : getCount('Айран'),
+        fri : getCount('Фри'),
+        sel : getCount('Селянка'),
+    }
+    console.log(items);
     const ShowStat = ({name,counter = countOfPos}) => {
         return(
             <div className='info_item'>
                 <h1>{compound[name].name}</h1>
                 <h2>{counter}</h2>
-                <h3>Капуста : {(compound[name].cabbage * counter)/1000} кг</h3>
-                <h3>Морковка : {(compound[name].carrots * counter)/1000} кг</h3>
-                <h3>Огурец : {(compound[name].cucumbers * counter)/1000} кг</h3>
-                <h3>Помидор : {(compound[name].tomato * counter)/1000} кг</h3>
-                <h3>Соус : {(compound[name].souce * counter)/1000} литра</h3>
-                <h3>Лаваш : {compound[name].bread * counter} шт</h3>
-                <h3>Цена: {compound[name].price * counter} грн</h3>
+                <ul>
+                    {compound[name].cabbage&&<li>Капуста : {(compound[name].cabbage * counter)/1000} кг</li>}
+                    {compound[name].carrots&&<li>Морковка : {(compound[name].carrots * counter)/1000} кг</li>}
+                    {compound[name].cucumbers&&<li>Огурец : {(compound[name].cucumbers * counter)/1000} кг</li>}
+                    <li>Помидор : {(compound[name].tomato * counter)/1000} кг</li>
+                    <li>Соус : {(compound[name].souce * counter)/1000} литра</li>
+                    <li>Лаваш : {compound[name].bread * counter} шт</li>
+                    <li style={{fontWeight:'bold'}}>Цена: {compound[name].price * counter} грн</li>
+                </ul>
             </div>
             )
     }
+
+
     return (
         <div className={`statistic`}>
             <div className='statistic__content'>
@@ -53,18 +60,18 @@ const Statistic = ({showStatistic, closeStat}) => {
                 <h1>Статистика</h1>
                 <input value={value} onChange={(e) => setValue(e.currentTarget.value)}/>
                 <button onClick={() => setCountOfPos(getCount(value))}>Найти позицию</button>
-                {countOfPos>0?
-                    <div className='info'>
-                        <ShowStat name={'kur'} counter={kurCount}/>
-                        <ShowStat name={'mini'} counter={miniCount}/>
-                    </div>
 
-                : null}
+                    <div className='info'>
+                        <ShowStat name={'kur'} counter={items.kurCount}/>
+                        <ShowStat name={'mini'} counter={items.miniCount.count}/>
+                        <ShowStat name={'arab'} counter={items.arab}/>
+                        <ShowStat name={'miniArab'} counter={items.miniArab}/>
+                    </div>
                 <div className='info2'>
-                    <div className='info_other'><p>Айран: {airan} шт. </p>
-                        <p>Цена: {airan*35} грн.</p></div>
-                    <div className='info_other'><p>Фри: {fri} шт.</p> <p>Цена: {fri*40} грн</p></div>
-                    <div className='info_other'><p>Селянка: {sel} шт.</p> <p>Цена: {sel*45} грн</p></div>
+                    <div className='info_other'><p>Айран: {items.airan} шт. </p>
+                        <p>Цена: {items.airan*35} грн.</p></div>
+                    <div className='info_other'><p>Фри: {items.fri} шт.</p> <p>Цена: {items.fri*40} грн</p></div>
+                    <div className='info_other'><p>Селянка: {items.sel} шт.</p> <p>Цена: {items.sel*45} грн</p></div>
                 </div>
 
 

@@ -35,10 +35,16 @@ export const orderSlice = createSlice({
         },
         addSingleOrder(state, action) {
             state.singleOrder = [...state.singleOrder, action.payload];
-        }
+        },
+        loadOrders: (state, action) => {
+            state.orders = action.payload;
+            state.sum = state.orders.reduce((sum,obj) => {
+                return (obj[1].total) + sum
+            }, 0)
+        },
     },
 })
 
-export const {addOrder, addSingleOrder, setTotal,removeOrder} = orderSlice.actions
+export const {addOrder, addSingleOrder, setTotal,removeOrder,loadOrders} = orderSlice.actions
 
 export default orderSlice.reducer
